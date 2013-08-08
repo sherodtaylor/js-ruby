@@ -40,20 +40,20 @@
     };
   };
 
-  var map = Ruby.map = function ( list, iterator, context ){
+  var map = Ruby.map = Ruby.collect = function ( list, iterator, context ){
     var array = [];
     each( list, function ( val ){
       var newValue = iterator.call( context, val );
       array.push(newValue);
     });
-    console.log(array);
     return array;
   };
 
-  var reduce = Ruby.reduce = Ruby.inject = function ( list, iterator, memo, context ){
+  var reduce = Ruby.inject = Ruby.reduce = Ruby.inject = function ( list, iterator, memo, context ){
     each( list, function ( val, index ){
       memo = iterator.call( context, memo, val, index , list );
     });
     return memo
   };
+
 }).call(this);

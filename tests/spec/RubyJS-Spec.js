@@ -35,4 +35,15 @@ describe("Ruby Methods", function (){
       expect(Ruby.reduce(obj, function ( memo, n ){ return memo + n }, 0)).toEqual(6);
     });
   });
+
+  describe("Find Method", function (){
+    it("looks through an Array and returns the first value that passes", function (){
+      var array = [2,3,4,5];
+      expect(Ruby.find(array, function ( num ){ return num % 2 === 0 } )).toEqual(2);
+    });
+    it("looks through an Object and returns the first value that passes", function (){
+      var obj = { one:1, two:2, three:3, four:4, five:5 };
+      expect(Ruby.find(obj, function ( num ){ return num % 2 === 0 } )).toEqual(2);
+    });
+  });
 });

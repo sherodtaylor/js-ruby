@@ -56,4 +56,23 @@
     return memo
   };
 
+  var find = Ruby.find = Ruby.detect = function ( list, iterator, context ){
+    if ( Array.isArray(list) ){
+      var isTrue = false;
+      for ( var i = 0; i < list.length; i++ ){
+        if ( iterator.call(context, list[i], list) ){
+          isTrue = true;
+          return list[i];
+        }
+      }
+    } else {
+      var isTrue = false;
+      var keys = Ruby.keys(list);
+      for ( var i = 0; i < keys.length; i++ ){
+        if ( iterator.call(context, list[keys[i]], list) ){
+          return list[keys[i]];
+        }
+      };
+    };
+  };
 }).call(this);

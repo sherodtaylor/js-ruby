@@ -38,12 +38,20 @@ describe("Ruby Methods", function (){
 
   describe("Find Method", function (){
     it("looks through an Array and returns the first value that passes", function (){
-      var array = [2,3,4,5];
+      var array = [1,2,3,4,5];
       expect(Ruby.find(array, function ( num ){ return num % 2 === 0 } )).toEqual(2);
     });
     it("looks through an Object and returns the first value that passes", function (){
       var obj = { one:1, two:2, three:3, four:4, five:5 };
       expect(Ruby.find(obj, function ( num ){ return num % 2 === 0 } )).toEqual(2);
+    });
+    it("Returns undefined if truth doesn't pass", function (){
+      var array = [1,3,5];
+      expect(Ruby.find(array, function ( num ){ return num % 2 === 0 } )).toBeUndefined();
+    });
+    it("Returns undefined if truth doesn't pass", function (){
+      var obj = { one:1, three:3, five:5 };
+      expect(Ruby.find(obj, function ( num ){ return num % 2 === 0 } )).toBeUndefined();
     });
   });
 });

@@ -33,19 +33,27 @@
       var keys = Ruby.keys(list);
       for ( var i = 0; i < keys.length; i++ ){
         var key = keys[i],
-            value = list[key];
-        iterator.call(context, value, key, list);
+            value = list[key],
+            index = i;
+        iterator.call(context, value, key, index, list);
       };
     };
   };
 
   var map = Ruby.map = function ( list, iterator, context ){
     var array = [];
-    Ruby.each( list, function ( val ){
+    each( list, function ( val ){
       var newValue = iterator.call( context, val );
       array.push(newValue);
     });
     console.log(array);
     return array;
+  };
+
+  var reduce = Ruby.reduce = Ruby.inject = function ( list, iterator, memo, context ){
+    each( list, function ( val, index ){
+      memo = iterator.call( context, memo, val, index , list );
+    });
+    return memo
   };
 }).call(this);

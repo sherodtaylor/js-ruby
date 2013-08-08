@@ -14,7 +14,7 @@ describe("Ruby Methods", function (){
     });
   });
 
-  describe("Produces a new array of value", function (){
+  describe("Map Method", function (){
     it("maps each value in an array and returns an array of transformed values", function (){
       var array = [1,2,3];
       expect(Ruby.map( array, function ( n ){ return n * 2; })).toEqual([2,4,6]);

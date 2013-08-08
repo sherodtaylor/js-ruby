@@ -21,22 +21,31 @@
     return keys;
   }
 
-   var each = Ruby.each = function ( list, iterator, context ){
-      if ( list == null ) return;
-      if (  Array.isArray(list)){
-        for ( var i = 0; i < list.length; i++ ){
-          console.log(list)
-          var element = list[i],
-              index = i;
-          iterator.call(context, element, index, list);
-        }
-      } else if ( typeof list === "object" ){
-        var keys = Ruby.keys(list);
-        for ( var i = 0; i < keys.length; i++ ){
-          var key = keys[i],
-              value = list[key];
-          iterator.call(context, value, key, list);
-        }
-    }
-  }
+  var each = Ruby.each = function ( list, iterator, context ){
+    if ( list == null ) return;
+    if (  Array.isArray(list)){
+      for ( var i = 0; i < list.length; i++ ){
+        var element = list[i],
+            index = i;
+        iterator.call(context, element, index, list);
+      }
+    } else if ( typeof list === "object" ){
+      var keys = Ruby.keys(list);
+      for ( var i = 0; i < keys.length; i++ ){
+        var key = keys[i],
+            value = list[key];
+        iterator.call(context, value, key, list);
+      };
+    };
+  };
+
+  var map = Ruby.map = function ( list, iterator, context ){
+    var array = [];
+    Ruby.each( list, function ( val ){
+      var newValue = iterator.call( context, val );
+      array.push(newValue);
+    });
+    console.log(array);
+    return array;
+  };
 }).call(this);

@@ -75,4 +75,33 @@
       };
     };
   };
+
+  var filter = Ruby.filter = Ruby.select = function ( list, iterator, context ){
+   var array = [];
+   each( list, function ( val ){
+     if ( iterator.call( context, val ) ){
+       array.push(val);
+     }
+   });
+   return array;
+  };
+
+  var where = Ruby.where = function ( list, properties ){
+    var array = [],
+        truth = false;
+    each( list, function ( val ){
+      propKeys = Ruby.keys(properties),
+      valKeys = Ruby.keys(val);
+      each( propKeys, function ( key ){
+        if ( val[key] === properties[key] ){
+          truth = true;
+        };
+      });
+      if ( truth === true ){
+        array.push(val);
+        truth = false;
+      };
+    });
+    return array;
+  };
 }).call(this);

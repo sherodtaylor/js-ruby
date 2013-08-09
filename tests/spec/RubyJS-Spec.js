@@ -1,20 +1,20 @@
 describe("Ruby Methods", function (){
-  describe("Each Method", function (){
-    it("iterates over an Array", function (){
-      var array = [1,2,3,4,5];
-      var count = 0;
-      Ruby.each( array, function ( n ){ count++; });
-      expect(count).toBe(5);
-    });
-    it("iterates over an Object", function (){
-      var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
-      var count = 0;
-      Ruby.each( obj, function ( n ){ count++; });
-      expect(count).toBe(5);
-    });
-  });
-
   describe("Collection Methods", function (){
+    describe("Each Method", function (){
+      it("iterates over an Array", function (){
+        var array = [1,2,3,4,5];
+        var count = 0;
+        Ruby.each( array, function ( n ){ count++; });
+        expect(count).toBe(5);
+      });
+      it("iterates over an Object", function (){
+        var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
+        var count = 0;
+        Ruby.each( obj, function ( n ){ count++; });
+        expect(count).toBe(5);
+      });
+    });
+
     describe("Map Method", function (){
       it("maps each value in an Array and returns an Array of transformed values", function (){
         var array = [1,2,3];
@@ -58,12 +58,24 @@ describe("Ruby Methods", function (){
 
     describe("Filter Method", function (){
       it("looks through each value in an Array and returns an Array of values that pass truth test", function (){
-        var array = [1,2,3,4,5];
-        expect(Ruby.filter(array, function ( n ){ n % 2 === 0 }) ).toEqual([2,4]);
+        var array = [2,3,4,5];
+        expect(Ruby.filter(array, function ( n ){ return n % 2 === 0 }) ).toEqual([2,4]);
       });
       it("looks through each value in an Object and returns an Array of values that pass truth test", function (){
         var obj = { one:1, two:2, three:3, four:4, five:5 };
-        expect(Ruby.filter(array, function ( n ){ n % 2 === 0 }) ).toEqual([2,4]);
+        expect(Ruby.filter(obj, function ( n ){ return n % 2 === 0 }) ).toEqual([2,4]);
+      });
+    });
+
+    describe("Where Method", function (){
+      it("returns an array of all values that contain a key-value pair", function (){
+        var movies = [{ title: "The Conjuring", year: 2013 }, { title: "Training Day", year: 2002 }, { title: "The Departed", year: 2006 },{ title: "Pacific Rim", year: 2013 } ];
+        expect(Ruby.where(movies, { year: 2013 })).toEqual([{ title: "The Conjuring", year: 2013 },{title: "Pacific Rim", year: 2013}]);
+      });
+
+      it("returns an array of all values that contain multiple key-value pairs", function (){
+        var movies = [{ title: "The Conjuring", year: 2013 }, { title: "Training Day", year: 2002, studio: "Universal Studios" }, { title: "The Departed", year: 2002, studio: "Universal Studios" },{ title: "Pacific Rim", year: 2013 } ];
+        expect(Ruby.where(movies, { year: 2002, studio: "Universal Studios" })).toEqual([{ title: "Training Day", year: 2002, studio: "Universal Studios" }, { title: "The Departed", year: 2002, studio: "Universal Studios" }])
       });
     });
   });

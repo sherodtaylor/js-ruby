@@ -136,7 +136,7 @@
         passed = true;
       }
     });
-    return true ? passed === true : false
+    return passed;
   };
 
   var contains = Ruby.contains = Ruby.include = function ( list, value ){

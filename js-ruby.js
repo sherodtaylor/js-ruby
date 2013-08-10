@@ -138,4 +138,14 @@
     });
     return true ? passed === true : false
   };
+
+  var contains = Ruby.contains = Ruby.include = function ( list, value ){
+    var present = false;
+    each(list, function ( val ){
+      if ( val === value ){
+        present = true;
+      }
+    });
+    return present;
+  }
 }).call(this);

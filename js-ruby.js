@@ -23,7 +23,7 @@
 
   var each = Ruby.each = function ( list, iterator, context ){
     if ( list == null ) return;
-    if (  Array.isArray(list)){
+    if ( Array.isArray(list) ){
       for ( var i = 0; i < list.length; i++ ){
         var element = list[i],
             index = i;
@@ -148,4 +148,37 @@
     });
     return present;
   }
+
+  Ruby.pluck = function ( list, property ){
+    var array = [];
+    each(list, function ( val ){
+      array.push(val[property]);
+    });
+    return array;
+  };
+
+  Ruby.max = function ( list, iterator, context ){
+    if ( iterator && ( list.length < 65535 ) ){
+      var array = [];
+      each(list, function ( val ){
+        array.push(iterator.call(context,val));
+      });
+      return Math.max.apply(Math, array);
+    } else {
+      return Math.max.apply(Math, list);
+    }
+  };
+
+  Ruby.min = function ( list, iterator, context ){
+    if ( iterator && ( list.length < 65535 ) ){
+      var array = [];
+      each(list, function ( val ){
+        array.push(iterator.call(context,val));
+      });
+      return Math.min.apply(Math, array);
+    } else {
+      return Math.min.apply(Math, list);
+    }
+  };
 }).call(this);
+

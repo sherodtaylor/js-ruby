@@ -153,5 +153,34 @@ describe("Ruby Methods", function (){
         expect(Ruby.contains(obj, 6)).toBe(false);
       });
     });
+
+    describe("Pluck Method", function (){
+      it("extracts an array of properties values", function (){
+        var array = [{ name: "Sherod" }, { name: "Arleyna" }, { name: "Aurie" }, { name: "Sam" }];
+        expect(Ruby.pluck( array, "name")).toEqual(['Sherod',"Arleyna","Aurie","Sam"]);
+      });
+    });
+
+    describe("Max Method", function (){
+      it("returns the max value", function (){
+        var array = [1,2,643,4,5];
+        expect(Ruby.max(array)).toEqual(643);
+      });
+      it("returns max value when an iterator is passed", function (){
+        var array = [{ name: "Sherod", age: 20 }, { name: "Arleyna", age: 45}, { name: "Aurie", age: 17 }, { name: "Sam", age: 49 }];
+        expect(Ruby.max(array, function ( person ){ return person.age })).toEqual(49);
+      });
+    });
+
+    describe("Min Method", function (){
+      it("returns the min value", function (){
+        var array = [1,2,643,4,5];
+        expect(Ruby.min(array)).toEqual(1);
+      });
+      it("returns min value when an iterator is passed", function (){
+        var array = [{ name: "Sherod", age: 20 }, { name: "Arleyna", age: 45}, { name: "Aurie", age: 17 }, { name: "Sam", age: 49 }];
+        expect(Ruby.min(array, function ( person ){ return person.age })).toEqual(17);
+      });
+    });
   });
 });

@@ -134,5 +134,24 @@ describe("Ruby Methods", function (){
         expect(Ruby.some(obj, function ( n ){ return n % 2 === 0 })).toBe(false);
       });
     });
+
+    describe("Contains Method", function (){
+      it("returns true if the value is present in the Array", function(){
+        var array = [1,2,3,4,5];
+        expect(Ruby.contains(array, 2)).toBe(true);
+      });
+      it("returns true if the value is present in the Object", function(){
+        var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
+        expect(Ruby.contains(obj, 2)).toBe(true);
+      });
+      it("returns false if the value isn't present in the Array", function(){
+        var array = [1,2,3,4,5];
+        expect(Ruby.contains(array, 6)).toBe(false);
+      });
+      it("returns false if the value isn't present in the Object", function(){
+        var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
+        expect(Ruby.contains(obj, 6)).toBe(false);
+      });
+    });
   });
 });

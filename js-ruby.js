@@ -120,14 +120,22 @@
   };
 
   var every = Ruby.every = Ruby.all = function ( list, iterator, context ){
-    var failed;
+    var failed = false;
     each(list, function ( val ){
       if ( !iterator.call(context, val) ){
         failed = true;
       }
     });
-    if ( failed ){
-      return false;
-    } else { return true; }
+    return !failed;
+  };
+
+  var some = Ruby.some = Ruby.any = function ( list, iterator, context ){
+    var passed = false;
+    each(list, function ( val ){
+      if ( iterator.call(context, val) ){
+        passed = true;
+      }
+    });
+    return true ? passed === true : false
   };
 }).call(this);

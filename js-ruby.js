@@ -118,4 +118,16 @@
     });
     return array;
   };
+
+  var every = Ruby.every = Ruby.all = function ( list, iterator, context ){
+    var failed;
+    each(list, function ( val ){
+      if ( !iterator.call(context, val) ){
+        failed = true;
+      }
+    });
+    if ( failed ){
+      return false;
+    } else { return true; }
+  };
 }).call(this);

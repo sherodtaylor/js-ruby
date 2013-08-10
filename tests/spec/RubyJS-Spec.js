@@ -104,7 +104,7 @@ describe("Ruby Methods", function (){
       });
       it("returns true if all values in the Object pass the truth test", function (){
         var obj = { two: 2, four: 4, six: 6, eight: 8 };
-        expect(Ruby.every(array, function ( n ){ return n % 2 === 0 })).toBe(true);
+        expect(Ruby.every(obj, function ( n ){ return n % 2 === 0 })).toBe(true);
       });
       it("returns false if any values in the Array fail the truth test", function (){
         var array = [1,2,3,4,5];
@@ -112,7 +112,7 @@ describe("Ruby Methods", function (){
       });
       it("returns false if any values in the Object fail the truth test", function (){
         var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
-        expect(Ruby.every(array, function ( n ){ return n % 2 === 0 })).toBe(false);
+        expect(Ruby.every(obj, function ( n ){ return n % 2 === 0 })).toBe(false);
       });
     });
   });

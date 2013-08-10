@@ -78,5 +78,23 @@ describe("Ruby Methods", function (){
         expect(Ruby.where(movies, { year: 2002, studio: "Universal Studios" })).toEqual([{ title: "Training Day", year: 2002, studio: "Universal Studios" }, { title: "The Departed", year: 2002, studio: "Universal Studios" }])
       });
     });
+
+    describe("FindWhere Method", function (){
+      it("returns the first value that matches all the key-value properties", function(){
+        var movies = [{ title: "The Conjuring", year: 2013 }, { title: "Training Day", year: 2002 }, { title: "The Departed", year: 2006 },{ title: "Pacific Rim", year: 2013 } ];
+        expect(Ruby.findWhere(movies, { year: 2013 })).toEqual({ title: "The Conjuring", year: 2013 });
+      });
+    });
+
+    describe("Reject Method", function (){
+      it("rejects elements in an Array that pass the truth test", function (){
+        var array = [1,2,3,4,5];
+        expect(Ruby.reject(array, function ( n ){ return n % 2 === 0 })).toEqual([1,3,5]);
+      });
+      it("rejects elements in an Object that pass the truth test", function (){
+        var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
+        expect(Ruby.reject(obj, function ( n ){ return n % 2 === 0 })).toEqual([1,3,5]);
+      });
+    });
   });
 });

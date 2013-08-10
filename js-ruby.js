@@ -104,4 +104,18 @@
     });
     return array;
   };
+
+  var findWhere = Ruby.findWhere = function (list, properties){
+    return where(list, properties)[0];
+  };
+
+  var reject = Ruby.reject = function ( list, iterator, context ){
+    var array = [];
+    each(list, function ( val ){
+      if ( !iterator.call(context, val) ){
+        array.push(val);
+      }
+    });
+    return array;
+  };
 }).call(this);

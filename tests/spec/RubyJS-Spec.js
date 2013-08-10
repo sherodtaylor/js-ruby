@@ -115,5 +115,24 @@ describe("Ruby Methods", function (){
         expect(Ruby.every(obj, function ( n ){ return n % 2 === 0 })).toBe(false);
       });
     });
+
+    describe("Some Method", function (){
+      it("returns true if any values in the Aray pass", function (){
+        var array = [1,2,3,4,5];
+        expect(Ruby.some(array, function ( n ){ return n % 2 === 0 })).toBe(true);
+      });
+      it("returns true if any values in the Object pass", function (){
+        var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
+        expect(Ruby.some(obj, function ( n ){ return n % 2 === 0 })).toBe(true);
+      });
+      it("returns false if none of the values in the Aray pass", function (){
+        var array = [1,3,5];
+        expect(Ruby.some(array, function ( n ){ return n % 2 === 0 })).toBe(false);
+      });
+      it("returns false if none of the values in the Object pass", function (){
+        var obj = { one: 1,  three: 3, five: 5 };
+        expect(Ruby.some(obj, function ( n ){ return n % 2 === 0 })).toBe(false);
+      });
+    });
   });
 });

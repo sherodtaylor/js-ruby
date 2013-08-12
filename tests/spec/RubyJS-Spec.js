@@ -239,7 +239,15 @@ describe("Ruby Methods", function (){
       });
     });
     describe("Rest Method", function (){
-      it("Should return everything but the value")
+      it("Should return everything but the value", function (){
+        var array = [1,2,3,4,5];
+        expect(Ruby.rest(array, 3)).toEqual([1,2,4,5]);
+      });
+      it("Shouldn't damage the original array", function (){
+        var array = [1,2,3,4,5];
+        Ruby.rest(array, 3);
+        expect(array).toEqual([1,2,3,4,5]);
+      });
     });
   });
 });

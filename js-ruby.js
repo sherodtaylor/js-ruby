@@ -228,7 +228,7 @@
 
   Ruby.first = function ( array, n ){
     return array[0];
-  }
+  };
 
   Ruby.initial = function ( array, n ){
     clone = array.slice(0);
@@ -239,6 +239,12 @@
   Ruby.last = function ( array, n ){
     return array[(array.length - 1)];
   };
+
+  Ruby.rest = function ( array, val ){
+    var clone = array.slice(0);
+    clone.splice(clone.indexOf(val), 1);
+    return clone
+  }
 
 }).call(this);
 

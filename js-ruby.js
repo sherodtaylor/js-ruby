@@ -244,7 +244,11 @@
     var clone = array.slice(0);
     clone.splice(clone.indexOf(val), 1);
     return clone
-  }
+  };
+
+  Ruby.compact = function ( array ){
+    return Ruby.filter(array, function ( val ) { return val });
+  };
 
 }).call(this);
 

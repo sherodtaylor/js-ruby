@@ -249,5 +249,16 @@ describe("Ruby Methods", function (){
         expect(array).toEqual([1,2,3,4,5]);
       });
     });
+    describe("Compact Method", function (){
+      it("Should return a copy with all falsy value removed", function (){
+        var array = ["",1,null,2,undefined,0,3,false,4,NaN,5];
+        expect(Ruby.compact(array)).toEqual([1,2,3,4,5]);
+      });
+      it("Shouldn't damage the original array", function (){
+        var original = ["",1,null,2,undefined,0,3,false,4,NaN,5];
+        Ruby.compact(array);
+        expect(array).toEqual(array);
+      });
+    });
   });
 });

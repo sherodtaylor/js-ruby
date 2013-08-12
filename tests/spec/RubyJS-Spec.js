@@ -226,12 +226,20 @@ describe("Ruby Methods", function (){
         var array = [1,2,3,4,5];
         expect(Ruby.initial(array)).toEqual([1,2,3,4]);
       });
+      it("Shouldn't damage the original array", function (){
+        var array = [1,2,3,4,5];
+        Ruby.initial(array);
+        expect(array).toEqual([1,2,3,4,5]);
+      });
     });
     describe("Last Method", function (){
       it("Should return the last value in the array", function (){
         var array = [1,2,3,4,5];
         expect(Ruby.last(array)).toEqual(5);
       });
+    });
+    describe("Rest Method", function (){
+      it("Should return everything but the value")
     });
   });
 });

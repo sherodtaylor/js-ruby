@@ -231,13 +231,14 @@
   }
 
   Ruby.initial = function ( array, n ){
-    array.pop();
-    return array;
+    clone = array.slice(0);
+    clone.pop();
+    return clone;
   };
 
   Ruby.last = function ( array, n ){
     return array[(array.length - 1)];
-  }
+  };
 
 }).call(this);
 

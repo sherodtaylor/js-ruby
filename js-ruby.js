@@ -21,6 +21,11 @@
     return keys;
   }
 
+
+/*
+ * Collection Methods
+ */
+
   var each = Ruby.each = function ( list, iterator, context ){
     if ( list == null ) return;
     if ( Array.isArray(list) ){
@@ -204,9 +209,6 @@
      }), 'value');
   };
 
-  /*
-   *  GroupBy Method runs each value through an iterator
-   */
   Ruby.groupBy = function ( list, value, context){
     var iterator = lookupIterator(value);
     var grouped = {};
@@ -218,6 +220,24 @@
       } else { grouped[calledIterator] = val };
     });
     return grouped;
+  };
+
+  /*
+   *  Array Methods
+   */
+
+  Ruby.first = function ( array, n ){
+    return array[0];
   }
+
+  Ruby.initial = function ( array, n ){
+    array.pop();
+    return array;
+  };
+
+  Ruby.last = function ( array, n ){
+    return array[(array.length - 1)];
+  }
+
 }).call(this);
 

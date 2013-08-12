@@ -199,7 +199,7 @@ describe("Ruby Methods", function (){
     });
 
     describe("GroupBy Method", function (){
-      it("splits collections into sets for property name", function (){
+      it("splits collections into sets for property name if string is passed", function (){
         var people = [{ name: "Sherod", age: 20 }, { name: "Stephanie", age: 24 }, { name: "Arleyna", age: 47 }];
         expect(Ruby.groupBy(people, "age")).toEqual({ 20: { name: "Sherod", age:20 }, 24: { name: "Stephanie", age: 24}, 47: { name: "Arleyna", age: 47 }})
       });
@@ -210,6 +210,27 @@ describe("Ruby Methods", function (){
             return "young"
           } else { return "old" };
         })).toEqual({young: [{ name: "Sherod", age: 20 }, { name: "Stephanie", age: 24 }], old: { name: "Arleyna", age: 47 }})
+      });
+    });
+  });
+
+  describe("Array Methods", function (){
+    describe("First Method", function (){
+      it("Should return the first value in the array", function (){
+        var array = [1,2,3,4,5];
+        expect(Ruby.first(array)).toEqual(1);
+      });
+    });
+    describe("Intial Method", function (){
+      it("Should return the everything but the last element in the array", function (){
+        var array = [1,2,3,4,5];
+        expect(Ruby.initial(array)).toEqual([1,2,3,4]);
+      });
+    });
+    describe("Last Method", function (){
+      it("Should return the last value in the array", function (){
+        var array = [1,2,3,4,5];
+        expect(Ruby.last(array)).toEqual(5);
       });
     });
   });

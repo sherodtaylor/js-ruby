@@ -182,5 +182,35 @@ describe("Ruby Methods", function (){
         expect(Ruby.min(array, function ( person ){ return person.age })).toEqual(17);
       });
     });
+
+    describe("SortBy Method", function (){
+      it("returns a sorted copy of the list of numbers", function (){
+        var array = [1,4,3,2,6];
+        expect(Ruby.sortBy(array, function ( n ){ return n < 2 ? 2 + n : n - 2  })).toEqual([2,3,4,1,6]);
+      });
+      it("returns a sorted copy of the list of letters", function (){
+        var array = ["b","c","a"]
+        expect(Ruby.sortBy(array, function ( n ){ return n })).toEqual(["a","b","c"]);
+      });
+      it("returns a sorted copy of the list when the value is property", function (){
+        var array = [[1,2,3],[1,2],[1,2,3,4]];
+        expect(Ruby.sortBy(array, "length" )).toEqual([[1,2],[1,2,3],[1,2,3,4]]);
+      });
+    });
+
+    describe("GroupBy Method", function (){
+      it("splits collections into sets for property name", function (){
+        var people = [{ name: "Sherod", age: 20 }, { name: "Stephanie", age: 24 }, { name: "Arleyna", age: 47 }];
+        expect(Ruby.groupBy(people, "age")).toEqual({ 20: { name: "Sherod", age:20 }, 24: { name: "Stephanie", age: 24}, 47: { name: "Arleyna", age: 47 }})
+      });
+      it("splits collections into sets based on the iterator's returned value", function (){
+        var people = [{ name: "Sherod", age: 20 }, { name: "Stephanie", age: 24 }, { name: "Arleyna", age: 47 }];
+        expect(Ruby.groupBy(people, function ( person ){
+          if ( person.age < 40 ){
+            return "young"
+          } else { return "old" };
+        })).toEqual({young: [{ name: "Sherod", age: 20 }, { name: "Stephanie", age: 24 }], old: { name: "Arleyna", age: 47 }})
+      });
+    });
   });
 });

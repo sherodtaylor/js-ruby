@@ -179,6 +179,45 @@
     } else {
       return Math.min.apply(Math, list);
     }
+ };
+
+  var lookupIterator = function(value) {
+    return typeof value === "function" ? value : function(obj){ return obj[value]; };
   };
+
+  Ruby.sortBy = function(obj, value, context) {
+   var iterator = lookupIterator(value);
+   return Ruby.pluck(Ruby.map(obj, function(value, index, list) {
+     return {
+             value: value,
+             index: index,
+             criteria: iterator.call(context, value, index, list)
+           };
+   }).sort(function(left, right) {
+       var a = left.criteria;
+       var b = right.criteria;
+       if (a !== b) {
+               if (a > b || a === void 0) return 1;
+               if (a < b || b === void 0) return -1;
+             }
+       return left.index - right.index;
+     }), 'value');
+  };
+
+  /*
+   *  GroupBy Method runs each value through an iterator
+   */
+  Ruby.groupBy = function ( list, value, context){
+    var iterator = lookupIterator(value);
+    var grouped = {};
+    each(list, function ( val, index ){
+      var calledIterator = iterator.call(context, val, index, list);
+      if ( grouped[calledIterator] !== undefined ){
+        grouped[calledIterator] = [ grouped[calledIterator] ]; // val turned into an array
+        grouped[calledIterator].push(val);
+      } else { grouped[calledIterator] = val };
+    });
+    return grouped;
+  }
 }).call(this);
 

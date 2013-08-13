@@ -23,6 +23,7 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jasmine','uglify']);
+  grunt.registerTask('travis', ['jasmine']);
 
   // // Travis CI task.
 };

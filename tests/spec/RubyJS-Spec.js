@@ -267,7 +267,7 @@ describe("Ruby Methods", function (){
       });
       it("Should flatten array a single level if shallow is passed as true", function (){
         var array = [1,[2],[[3]]];
-        expect(Ruby.flatten(array)).toEqual([1,2,[3]]);
+        expect(Ruby.flatten(array, true)).toEqual([1,2,[3]]);
       });
       it("Shouldn't damage the original array", function (){
         var array = [1,[2],[[3]]];

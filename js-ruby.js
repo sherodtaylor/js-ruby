@@ -250,5 +250,29 @@
     return Ruby.filter(array, function ( val ) { return val });
   };
 
+  Ruby.flatten = function ( array, shallow ){
+    var newArray = [];
+    var count = 0;
+    each(array, function ( val ){
+      checker(val, shallow);
+      count = 0;
+    });
+    function checker ( value, onelevel ){
+      if ( ( ObjProto.toString.call(value) !== "[object Array]" ) ){
+        newArray.push(value);
+      } else {
+        count++;
+        each(value, function ( nextVal ){
+          if ( ( count === 1 ) && onelevel ) {
+            newArray.push(nextVal);
+          } else {
+            checker(nextVal);
+          };
+        });
+      };
+    };
+    return newArray;
+  };
+
 }).call(this);
 

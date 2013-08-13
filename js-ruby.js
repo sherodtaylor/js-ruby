@@ -275,7 +275,7 @@
   };
 
   Ruby.indexOf = function ( array, index ){
-    return ArrayProto.indexOf.call(array, index);
-  }
+      return ArrayProto.indexOf.call(array, index);
+  };
 }).call(this);
 

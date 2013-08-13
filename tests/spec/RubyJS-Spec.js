@@ -256,8 +256,23 @@ describe("Ruby Methods", function (){
       });
       it("Shouldn't damage the original array", function (){
         var original = ["",1,null,2,undefined,0,3,false,4,NaN,5];
-        Ruby.compact(array);
-        expect(array).toEqual(array);
+        Ruby.compact(original);
+        expect(original).toEqual(original);
+      });
+    });
+    describe("Flatten Method", function (){
+      it("Should return a flattened array ", function (){
+        var array = [1,[2],[[3]]];
+        expect(Ruby.flatten(array)).toEqual([1,2,3]);
+      });
+      it("Should flatten array a single level if shallow is passed as true", function (){
+        var array = [1,[2],[[3]]];
+        expect(Ruby.flatten(array)).toEqual([1,2,[3]]);
+      });
+      it("Shouldn't damage the original array", function (){
+        var array = [1,[2],[[3]]];
+        Ruby.flatten(array, 3);
+        expect(array).toEqual([1,[2],[[3]]]);
       });
     });
   });

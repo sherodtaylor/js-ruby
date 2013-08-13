@@ -275,5 +275,11 @@ describe("Ruby Methods", function (){
         expect(array).toEqual([1,[2],[[3]]]);
       });
     });
+    describe("IndexOf Method", function (){
+      it("Should return the index", function (){
+        var array = [1,2,3,4];
+        expect(Ruby.indexOf(array, 2)).toEqual(1);
+      });
+    });
   });
 });

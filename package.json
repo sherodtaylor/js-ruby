@@ -27,6 +27,6 @@
     "url": "http://github.com/sherodtaylor/js-ruby.git"
   },
   "scripts": {
-    "test": "grunt travis --verbose"
+    "test": "grunt travis -v"
   }
 }

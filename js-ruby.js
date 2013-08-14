@@ -19,7 +19,7 @@
       keys.push(key);
     }
     return keys;
-  }
+  };
 
 
 /*
@@ -27,22 +27,17 @@
  */
 
   var each = Ruby.each = function ( list, iterator, context ){
-    if ( list == null ) return;
+    if ( list === null ) return;
     if ( Array.isArray(list) ){
-      for ( var i = 0; i < list.length; i++ ){
-        var element = list[i],
-            index = i;
-        iterator.call(context, element, index, list);
+      for ( var _i = 0; _i < list.length; _i++ ){
+        iterator.call(context, list[_i], _i, list);
       }
     } else if ( typeof list === "object" ){
       var keys = Ruby.keys(list);
-      for ( var i = 0; i < keys.length; i++ ){
-        var key = keys[i],
-            value = list[key],
-            index = i;
-        iterator.call(context, value, key, index, list);
-      };
-    };
+      for ( var prop in list ){
+        iterator.call(context, list[prop], prop, list);
+      }
+    }
   };
 
   var map = Ruby.map = Ruby.collect = function ( list, iterator, context ){
@@ -58,27 +53,24 @@
     each( list, function ( val, index ){
       memo = iterator.call( context, memo, val, index , list );
     });
-    return memo
+    return memo;
   };
 
+  // I would use
   var find = Ruby.find = Ruby.detect = function ( list, iterator, context ){
     if ( Array.isArray(list) ){
-      var isTrue = false;
       for ( var i = 0; i < list.length; i++ ){
         if ( iterator.call(context, list[i], list) ){
-          isTrue = true;
           return list[i];
         }
       }
     } else {
-      var isTrue = false;
-      var keys = Ruby.keys(list);
-      for ( var i = 0; i < keys.length; i++ ){
-        if ( iterator.call(context, list[keys[i]], list) ){
-          return list[keys[i]];
+      for ( var prop in list ){
+        if ( iterator.call(context, list[prop], list) ){
+          return list[prop];
         }
-      };
-    };
+      }
+    }
   };
 
   var filter = Ruby.filter = Ruby.select = function ( list, iterator, context ){
@@ -95,17 +87,17 @@
     var array = [],
         truth = false;
     each( list, function ( val ){
-      propKeys = Ruby.keys(properties),
-      valKeys = Ruby.keys(val);
+      var propKeys = Ruby.keys(properties),
+          valKeys = Ruby.keys(val);
       each( propKeys, function ( key ){
         if ( val[key] === properties[key] ){
           truth = true;
-        };
+        }
       });
       if ( truth === true ){
         array.push(val);
         truth = false;
-      };
+      }
     });
     return array;
   };
@@ -152,7 +144,7 @@
       }
     });
     return present;
-  }
+  };
 
   Ruby.pluck = function ( list, property ){
     var array = [];
@@ -217,7 +209,9 @@
       if ( grouped[calledIterator] !== undefined ){
         grouped[calledIterator] = [ grouped[calledIterator] ]; // val turned into an array
         grouped[calledIterator].push(val);
-      } else { grouped[calledIterator] = val };
+      } else {
+        grouped[calledIterator] = val;
+      }
     });
     return grouped;
   };
@@ -243,11 +237,11 @@
   Ruby.rest = function ( array, val ){
     var clone = array.slice(0);
     clone.splice(clone.indexOf(val), 1);
-    return clone
+    return clone;
   };
 
   Ruby.compact = function ( array ){
-    return Ruby.filter(array, function ( val ) { return val });
+    return Ruby.filter(array, function ( val ) { return val; });
   };
 
   Ruby.flatten = function ( array, shallow ){
@@ -267,10 +261,10 @@
             newArray.push(nextVal);
           } else {
             checker(nextVal);
-          };
+          }
         });
-      };
-    };
+      }
+    }
     return newArray;
   };
 

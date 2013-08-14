@@ -10,6 +10,9 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
+    jshint: {
+        src: '<%= pkg.name %>.js'
+    },
     jasmine: {
       src: '<%= pkg.name %>.js',
       options: {
@@ -20,10 +23,11 @@ module.exports = function(grunt) {
   });
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Default task.
-  grunt.registerTask('default', ['jasmine','uglify']);
-  grunt.registerTask('travis', ['jasmine']);
+  grunt.registerTask('default', ['jshint','jasmine','uglify']);
 
-  // // Travis CI task.
+  // Travis CI task.
+  grunt.registerTask('travis', ['jshint','jasmine']);
 };

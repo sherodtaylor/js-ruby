@@ -16,38 +16,51 @@
   Ruby.keys = function (obj){
     var keys = [];
     for ( var key in obj ){
-      keys.push(key);
+      if (obj.hasOwnProperty(key)) keys.push(key);
     }
     return keys;
   };
+
+  // Simple is Array Shim if no ES5
+  if(Array.isArray === undefined) {
+    Array.isArray = function(candidate){
+      return candidate instanceof Array;
+    };
+  }
 
 
 /*
  * Collection Methods
  */
 
-  var each = Ruby.each = function ( list, iterator, context ){
+  var each = function ( list, iterator, context ){
     if ( list === null ) return;
     if ( Array.isArray(list) ){
-      for ( var _i = 0; _i < list.length; _i++ ){
-        iterator.call(context, list[_i], _i, list);
+      for ( var i = 0, l = list.length; i < l; i++ ){
+        iterator.call(context, list[i], i, list);
       }
     } else if ( typeof list === "object" ){
       var keys = Ruby.keys(list);
-      for ( var prop in list ){
-        iterator.call(context, list[prop], prop, list);
+      for ( var _i = 0, _l = keys.length; _i < _l; _i++ ){
+        iterator.call(context, list[keys[_i]], keys[_i], list);
       }
     }
   };
 
-  var map = Ruby.map = Ruby.collect = function ( list, iterator, context ){
-    var array = [];
+  Ruby.each = each;
+
+
+  var map = function ( list, iterator, context ){
+    var retArray = [];
     each( list, function ( val ){
       var newValue = iterator.call( context, val );
-      array.push(newValue);
+      retArray.push(newValue);
     });
-    return array;
+    return retArray;
   };
+
+  Ruby.map = Ruby.collect = map;
+
 
   var reduce = Ruby.inject = Ruby.reduce = Ruby.inject = function ( list, iterator, memo, context ){
     each( list, function ( val, index ){
@@ -59,14 +72,14 @@
   // I would use
   var find = Ruby.find = Ruby.detect = function ( list, iterator, context ){
     if ( Array.isArray(list) ){
-      for ( var i = 0; i < list.length; i++ ){
+      for ( var i = 0, l = list.length; i < l; i++ ){
         if ( iterator.call(context, list[i], list) ){
           return list[i];
         }
       }
     } else {
       for ( var prop in list ){
-        if ( iterator.call(context, list[prop], list) ){
+        if ( list.hasOwnProperty(prop)  && iterator.call(context, list[prop], list) ){
           return list[prop];
         }
       }
